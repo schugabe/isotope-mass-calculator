@@ -125,7 +125,16 @@ def main(argv):
         inputreader = csv.reader(csvfile, delimiter=';', quotechar='|')
         for row in inputreader:
             name = row[0]
-            if (len(use_names)== 0 or name in use_names) and name not in exclude_names:
+            
+            use_current = 0
+            if len(use_names)==0:
+                use_current = 1
+            else:
+                for use in use_names:
+                    if name.endswith(use):
+                        use_current = 1
+                        
+            if use_current and name not in exclude_names:
                 names.append(name)
                 mass = int(row[1])
                 masses.append(mass)
@@ -136,6 +145,10 @@ def main(argv):
                 if verbose:
                     print("Ignoring "+str(name))
     
+    if len(masses) == 0:
+        print("No isotopes added, nothing to do")
+        sys.exit(0)
+        
     duplicates  = 0
     
     max_length = len(max(names, key=len))
@@ -163,6 +176,9 @@ def main(argv):
         print("Searching "+str(target), end=" ")
         solutions = build_combs(target, 0, [], None)
         print("and found %d solution(s)" % solutions)
+        
+        if solutions==0:
+            continue
         
         tmp_filename = ofile.split('.')
         filename = ("%s_%d.%s" % (tmp_filename[0], target, tmp_filename[1]))
