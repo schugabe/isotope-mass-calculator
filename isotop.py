@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-# DI Johannes Kasberger, Reelworx GmbH
+# DI Johannes Kasberger
+# (C) 2014 Reelworx GmbH, http://reelworx.at
+# https://github.com/schugabe/isotope-mass-calculator
 
 from __future__ import print_function
 import sys, getopt
@@ -39,6 +41,7 @@ def usage(name):
     print(" "+name+" -t 194 -u 138La,137Ba")
     print("  Loads input.csv in the same directory, uses only 138La and 137Ba from the file to find combinations")
     print("  that sum up to 194 and stores the result in output_194.csv")
+    print("  to load 63Cu and 65Cu use the argument -u Cu, this works for all isotopes that share the same suffix")
     print()
     print(" "+name+" -t 194 -e 138La,137Ba")
     print("  Loads input.csv in the same directory, uses all isotopes from the file except 138La and 137Ba")
